@@ -1,5 +1,6 @@
 import requests
 import os
+import time
 from bs4 import BeautifulSoup
 
 #Variables and such are in spanish to save time on edition.
@@ -56,7 +57,9 @@ if response.status_code == 200:
                     print(f" {nombre_archivo} file downloaded successfully.")
                 else:
                     print(f" {nombre_archivo} wasn't downloaded")
+                    time.sleep(5)  #5 second pause between download
 else:
     print("Website can't be accessed")
 
 #Suggested by Admer : add a 5-10 second timer or pause so it can have a microbreak during download... the script in good internet can download the entire library
+#Suggestion by Admer implemented, script works now
