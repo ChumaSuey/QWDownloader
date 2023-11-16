@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 url = "https://maps.quakeworld.nu/all/"
 
 # Destination folder for the downloaded maps  THIS HAS TO BE SET IN ORDER FOR THE SCRIPT TO WORK!
-carpeta_destino = r"C:\Users\luism\OneDrive\Escritorio\qwmaps"
+carpeta_destino = r"C:\Users\luism\OneDrive\Escritorio\qwmaps" # ./  here will make the maps download to the project directory
 
 # GET Request to the website
 response = requests.get(url)
@@ -58,3 +58,5 @@ if response.status_code == 200:
                     print(f" {nombre_archivo} wasn't downloaded")
 else:
     print("Website can't be accessed")
+
+#Suggested by Admer : add a 5-10 second timer or pause so it can have a microbreak during download... the script in good internet can download the entire library
