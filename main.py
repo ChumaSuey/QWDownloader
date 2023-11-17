@@ -8,8 +8,9 @@ from bs4 import BeautifulSoup
 # Website URL of Quakeworld Quake 1 maps database.
 url = "https://maps.quakeworld.nu/all/"
 
-# Destination folder for the downloaded maps  THIS HAS TO BE SET IN ORDER FOR THE SCRIPT TO WORK!
-carpeta_destino = r"C:\Users\luism\OneDrive\Escritorio\qwmaps" # ./  here will make the maps download to the project directory
+# Destination folder for the downloaded maps
+carpeta_destino = "./qwmaps"
+# ./  here will make the maps download to the project directory to the folder "qwmaps", it should work without hazzling it much.
 
 # GET Request to the website
 response = requests.get(url)
