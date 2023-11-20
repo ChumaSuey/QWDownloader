@@ -3,14 +3,17 @@ import os
 import time
 from bs4 import BeautifulSoup
 
-#Variables and such are in spanish to save time on edition.
-
 # Website URL of Quakeworld Quake 1 maps database.
 url = "https://maps.quakeworld.nu/all/"
 
 # Destination folder for the downloaded maps
 carpeta_destino = "./qwmaps"
-# ./  here will make the maps download to the project directory to the folder "qwmaps", it should work without hazzling it much.
+
+# Función para verificar y crear la carpeta de destino si no existe
+def verificar_carpeta_destino():
+    if not os.path.exists(carpeta_destino):
+        os.makedirs(carpeta_destino)
+        print(f"Carpeta {carpeta_destino} creada.")
 
 # GET Request to the website
 response = requests.get(url)
@@ -23,7 +26,6 @@ if response.status_code == 200:
     # Checking HTML content with BeautifulSoup
     soup = BeautifulSoup(contenido, "html.parser")
 
-#Fila = Rows , It's important to know the rows gotta be checked.
     # Finding all the rows with download links
     filas = soup.find_all("tr")
 
@@ -50,6 +52,9 @@ if response.status_code == 200:
 
                 # Successful Download verification (status code 200)
                 if response.status_code == 200:
+                    # Verify and create the destination folder if it doesn't exist
+                    verificar_carpeta_destino()
+
                     # Save the file in the destination folder
                     ruta_archivo = os.path.join(carpeta_destino, nombre_archivo)
                     with open(ruta_archivo, "wb") as archivo:
@@ -58,9 +63,10 @@ if response.status_code == 200:
                     print(f" {nombre_archivo} file downloaded successfully.")
                 else:
                     print(f" {nombre_archivo} wasn't downloaded")
-                    time.sleep(5)  #5 second pause between download
+                    time.sleep(5)  # 5 second pause between download
 else:
     print("Website can't be accessed")
 
-#Suggested by Admer : add a 5-10 second timer or pause so it can have a microbreak during download... the script in good internet can download the entire library
-#Suggestion by Admer implemented, script works now
+# Suggested by Admer: add a 5-10 second timer or pause so it can have a microbreak during download... the script in good internet can download the entire library
+# Suggestion by Admer implemented, script works now
+# Suggestion by Em3rald implemented, script will create qwmaps if it's not created.
