@@ -9,7 +9,7 @@ url = "https://maps.quakeworld.nu/all/"
 # Destination folder for the downloaded maps
 carpeta_destino = "./qwmaps"
 
-# Función para verificar y crear la carpeta de destino si no existe
+# Function that verifies and/or create the source folder for the maps
 def verificar_carpeta_destino():
     if not os.path.exists(carpeta_destino):
         os.makedirs(carpeta_destino)
