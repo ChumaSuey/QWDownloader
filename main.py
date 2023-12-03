@@ -1,6 +1,7 @@
 import requests
 import os
 import time
+import csv
 from bs4 import BeautifulSoup
 
 # Website URL of Quakeworld Quake 1 maps database.
@@ -9,11 +10,20 @@ url = "https://maps.quakeworld.nu/all/"
 # Destination folder for the downloaded maps
 carpeta_destino = "./qwmaps"
 
+# CSV file path
+csv_file = "./qwmaps/mapas_descargados.csv"
+
 # Function that verifies and/or create the source folder for the maps
 def verificar_carpeta_destino():
     if not os.path.exists(carpeta_destino):
         os.makedirs(carpeta_destino)
         print(f"Carpeta {carpeta_destino} creada.")
+
+# Function that writes the downloaded map to the CSV file
+def escribir_a_csv(nombre_archivo):
+    with open(csv_file, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([nombre_archivo])
 
 # GET Request to the website
 response = requests.get(url)
@@ -60,13 +70,12 @@ if response.status_code == 200:
                     with open(ruta_archivo, "wb") as archivo:
                         archivo.write(response.content)
 
+                    # Write the downloaded map to the CSV file
+                    escribir_a_csv(nombre_archivo)
+
                     print(f" {nombre_archivo} file downloaded successfully.")
                 else:
                     print(f" {nombre_archivo} wasn't downloaded")
                     time.sleep(5)  # 5 second pause between download
 else:
     print("Website can't be accessed")
-
-# Suggested by Admer: add a 5-10 second timer or pause so it can have a microbreak during download... the script in good internet can download the entire library
-# Suggestion by Admer implemented, script works now
-# Suggestion by Em3rald implemented, script will create qwmaps if it's not created.
