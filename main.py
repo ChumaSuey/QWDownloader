@@ -3,6 +3,8 @@ import os
 import time
 from bs4 import BeautifulSoup
 
+# Check main2.0.py for a cleaner version of this script.
+
 # Website URL of Quakeworld Quake 1 maps database.
 url = "https://maps.quakeworld.nu/all/"
 
